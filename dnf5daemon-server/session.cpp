@@ -145,7 +145,10 @@ Session::Session(
     for (auto & s : services) {
         s->dbus_register();
     }
+
+#ifndef SDBUS_CPP_VERSION_2
     dbus_object->finishRegistration();
+#endif
 
     base->set_download_callbacks(std::make_unique<dnf5daemon::DownloadCB>(*this));
 }
@@ -256,7 +259,10 @@ bool Session::check_authorization(
     const SDBUS_OBJECT_PATH_TYPE object_path{"/org/freedesktop/PolicyKit1/Authority"};
     const SDBUS_INTERFACE_NAME_TYPE interface_name{"org.freedesktop.PolicyKit1.Authority"};
     auto polkit_proxy = sdbus::createProxy(connection, destination_name, object_path);
+
+#ifndef SDBUS_CPP_VERSION_2
     polkit_proxy->finishRegistration();
+#endif
 
     // call CheckAuthorization method
     sdbus::Struct<bool, bool, std::map<std::string, std::string>> auth_result;
