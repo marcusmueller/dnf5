@@ -12,6 +12,7 @@ Miscellaneous
     forcearch.7
     installroot.7
     specs.7
+    system-state.7
 
 ..
     # TODO(jkolarik): Filtering is not ready yet
